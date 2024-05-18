@@ -49,7 +49,7 @@ export class AppComponent {
   }
 
   submit(value: {[name: string]: any}) {
-    console.log(value);
+    console.log(this.formDynamic.form);
     this.formDynamic.form.markAllAsTouched();
     // Object.keys(this.formDynamic.form.controls).forEach((key) => {
     //   const control = this.formDynamic.form.get(key) as FormControl;
