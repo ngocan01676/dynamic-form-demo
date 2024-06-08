@@ -1,4 +1,4 @@
-<div class="app">
+<!-- <div class="app">
   <dynamic-form
     [config]="config"
     #form="dynamicForm"
@@ -6,4 +6,11 @@
   </dynamic-form>
   {{ form.valid }}
   {{ form.value | json }}
-</div>
+</div> -->
+
+<form [formGroup]="myForm">
+  <label for="control">Control</label>
+  <input id="control" formControlName="control">
+</form>
+
+<button (click)="updateValueWithoutEmitEvent('new value')">Set Value Without Emit Event</button>

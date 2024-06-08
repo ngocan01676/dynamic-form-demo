@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dynamic-form.component';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FieldConfig } from './dynamic-form/models/field-config.interface';
 
 @Component({
@@ -8,9 +8,10 @@ import { FieldConfig } from './dynamic-form/models/field-config.interface';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'demo-form';
   @ViewChild(DynamicFormComponent) formDynamic: DynamicFormComponent;
+  myForm: FormGroup;
 
   config: FieldConfig[] = [
     {
@@ -35,6 +36,20 @@ export class AppComponent {
     }
   ];
 
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit(): void {
+    // Initialize the form group with a form control
+    this.myForm = this.fb.group({
+      control: new FormControl('')
+    });
+
+    // Subscribe to valueChanges with proper type handling
+    this.myForm.get('control')?.valueChanges.subscribe(value => {
+      console.log('Value changed:', value);
+    });
+  }
+
   ngAfterViewInit() {
     // let previousValid = this.form.valid;
     // this.form.changes.subscribe(() => {
@@ -57,4 +72,10 @@ export class AppComponent {
     //   //control.updateValueAndValidity(); // will work
     // });
   }
+
+    // Method to update value without emitting the event
+    updateValueWithoutEmitEvent(newValue: string): void {
+      //this.myForm.get('control')?.setValue(newValue, { emitEvent: false });
+      this.myForm.get('control')?.setValue(newValue);
+    }
 }
