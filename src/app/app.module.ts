@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { DynamicFormModule } from './dynamic-form/dynamic-form.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SpreadsheetAllModule } from '@syncfusion/ej2-angular-spreadsheet';
+import { DocumentEditorContainerAllModule, DocumentEditorModule } from '@syncfusion/ej2-angular-documenteditor';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,10 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     DynamicFormModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SpreadsheetAllModule,
+    DocumentEditorModule,
+    DocumentEditorContainerAllModule
   ],
   providers: [],
   bootstrap: [AppComponent]

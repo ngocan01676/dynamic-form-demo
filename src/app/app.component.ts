@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dynamic-form.component';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FieldConfig } from './dynamic-form/models/field-config.interface';
+import { SpreadsheetComponent } from '@syncfusion/ej2-angular-spreadsheet';
+import { defaultData } from './data';
+
 
 @Component({
   selector: 'app-root',
@@ -36,6 +39,12 @@ export class AppComponent implements OnInit {
     }
   ];
 
+  
+  @ViewChild('spreadSheetInstance')
+  spreadSheetInstance: SpreadsheetComponent;
+  @ViewChild('spreadsheet') public spreadsheetObj: SpreadsheetComponent;
+  aSpreadSheetData: Object[] = [];
+
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -48,6 +57,8 @@ export class AppComponent implements OnInit {
     this.myForm.get('control')?.valueChanges.subscribe(value => {
       console.log('Value changed:', value);
     });
+
+    this.aSpreadSheetData = defaultData();
   }
 
   ngAfterViewInit() {
@@ -73,9 +84,17 @@ export class AppComponent implements OnInit {
     // });
   }
 
-    // Method to update value without emitting the event
-    updateValueWithoutEmitEvent(newValue: string): void {
-      //this.myForm.get('control')?.setValue(newValue, { emitEvent: false });
-      this.myForm.get('control')?.setValue(newValue);
-    }
+  // Method to update value without emitting the event
+  updateValueWithoutEmitEvent(newValue: string): void {
+    //this.myForm.get('control')?.setValue(newValue, { emitEvent: false });
+    this.myForm.get('control')?.setValue(newValue);
+  }
+
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    let fileResult = new File([file], "Sample.xlsx"); //convert the blob into file
+    //this.spreadsheetObj!.open({ file: file }); // open the file into Spreadsheet
+    this.spreadsheetObj.open({ file: fileResult });
+  }
 }
