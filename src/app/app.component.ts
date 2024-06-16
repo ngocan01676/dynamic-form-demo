@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { FieldConfig } from './dynamic-form/models/field-config.interface';
 import { SpreadsheetComponent } from '@syncfusion/ej2-angular-spreadsheet';
 import { defaultData } from './data';
+import { DocumentEditorComponent, DocumentEditorContainerComponent } from '@syncfusion/ej2-angular-documenteditor';
 
 
 @Component({
@@ -44,6 +45,10 @@ export class AppComponent implements OnInit {
   spreadSheetInstance: SpreadsheetComponent;
   @ViewChild('spreadsheet') public spreadsheetObj: SpreadsheetComponent;
   aSpreadSheetData: Object[] = [];
+
+  @ViewChild('documentEditor', {
+    static: true
+  }) documentEditor: DocumentEditorContainerComponent;
 
   constructor(private fb: FormBuilder) { }
 
@@ -96,5 +101,29 @@ export class AppComponent implements OnInit {
     let fileResult = new File([file], "Sample.xlsx"); //convert the blob into file
     //this.spreadsheetObj!.open({ file: file }); // open the file into Spreadsheet
     this.spreadsheetObj.open({ file: fileResult });
+  }
+
+  onOpenDocument(event: any) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const arrayBuffer = reader.result as ArrayBuffer;
+      const base64String = this.arrayBufferToBase64(arrayBuffer);
+      //this.documentEditor!.open(base64String);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
+  // Function to convert ArrayBuffer to Base64
+  arrayBufferToBase64(buffer: ArrayBuffer): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
   }
 }

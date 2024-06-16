@@ -31,6 +31,11 @@
   <input type="file" (change)="onFileChange($event)" />
 </div> -->
 
-<ejs-documenteditorcontainer
+<ejs-documenteditorcontainer #documentEditor
   serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
   id="container" height="600px" [enableToolbar]=true></ejs-documenteditorcontainer>
+<!-- <ejs-documenteditor serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/" #documentEditor></ejs-documenteditor> -->
+
+<div class="container">
+  <input type="file" (change)="onOpenDocument($event)" />
+</div>
