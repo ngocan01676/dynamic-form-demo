@@ -31,11 +31,40 @@
   <input type="file" (change)="onFileChange($event)" />
 </div> -->
 
-<ejs-documenteditorcontainer #documentEditor
+<!-- <ejs-documenteditorcontainer #documentEditor
   serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/"
-  id="container" height="600px" [enableToolbar]=true></ejs-documenteditorcontainer>
+  id="container" height="600px" [enableToolbar]=true></ejs-documenteditorcontainer> -->
 <!-- <ejs-documenteditor serviceUrl="https://ej2services.syncfusion.com/production/web-services/api/documenteditor/" #documentEditor></ejs-documenteditor> -->
 
-<div class="container">
+<!-- <div class="container">
   <input type="file" (change)="onOpenDocument($event)" />
+</div> -->
+
+
+<div class="container">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div formArrayName="addresses" *ngFor="let address of addresses.controls; let i = index">
+      <ng-container *ngTemplateOutlet="addressTemplate; context: { $implicit: address, index: i }"></ng-container>
+    </div>
+    <button type="button" (click)="addAddress()">Add Address</button>
+    <button type="submit">Submit</button>
+  </form>
+
+  <ng-template #addressTemplate let-address let-i="index">
+    <div [formGroup]="address" class="address-group">
+      <label>
+        Street:
+        <input type="text" formControlName="street" required />
+      </label>
+      <label>
+        City:
+        <input type="text" formControlName="city" required />
+      </label>
+      <label>
+        Country:
+        <input type="text" formControlName="country" required />
+      </label>
+      <button type="button" (click)="removeAddress(i)">Remove</button>
+    </div>
+  </ng-template>
 </div>

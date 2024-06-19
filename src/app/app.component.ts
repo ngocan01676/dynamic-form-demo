@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DynamicFormComponent } from './dynamic-form/containers/dynamic-form/dynamic-form.component';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FieldConfig } from './dynamic-form/models/field-config.interface';
 import { SpreadsheetComponent } from '@syncfusion/ej2-angular-spreadsheet';
 import { defaultData } from './data';
@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   title = 'demo-form';
   @ViewChild(DynamicFormComponent) formDynamic: DynamicFormComponent;
   myForm: FormGroup;
+  form: FormGroup;
 
   config: FieldConfig[] = [
     {
@@ -50,7 +51,36 @@ export class AppComponent implements OnInit {
     static: true
   }) documentEditor: DocumentEditorContainerComponent;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) { 
+    this.form = this.fb.group({
+      addresses: this.fb.array([])
+    });
+
+    // Initialize with one address field
+    this.addAddress();
+  }
+
+  get addresses(): FormArray {
+    return this.form.get('addresses') as FormArray;
+  }
+
+  addAddress() {
+    const addressGroup = this.fb.group({
+      street: ['', Validators.required],
+      city: ['', Validators.required],
+      country: ['', Validators.required]
+    });
+    this.addresses.push(addressGroup);
+  }
+
+  removeAddress(index: number) {
+    this.addresses.removeAt(index);
+  }
+
+  onSubmit() {
+    console.log(this.form.value);
+    console.log(this.form);
+  }
 
   ngOnInit(): void {
     // Initialize the form group with a form control
