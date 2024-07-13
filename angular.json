@@ -27,7 +27,8 @@
             "styles": [
               "src/styles.css",
               "node_modules/@syncfusion/ej2-base/styles/material.css",
-              "node_modules/@syncfusion/ej2-angular-spreadsheet/styles/material.css"
+              "node_modules/@syncfusion/ej2-angular-spreadsheet/styles/material.css",
+              "node_modules/ng-zorro-antd/ng-zorro-antd.min.css"
             ],
             "scripts": []
           },

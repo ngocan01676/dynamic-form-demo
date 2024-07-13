@@ -6,14 +6,14 @@
   </dynamic-form>
   {{ form.valid }}
   {{ form.value | json }}
-</div> -->
+</div>
 
 <form [formGroup]="myForm">
   <label for="control">Control</label>
   <input id="control" formControlName="control">
-</form>
+</form> -->
 
-<button (click)="updateValueWithoutEmitEvent('new value')">Set Value Without Emit Event</button>
+<!-- <button (click)="updateValueWithoutEmitEvent('new value')">Set Value Without Emit Event</button> -->
 
 <!-- <ejs-spreadsheet #spreadSheetInstance>
   <e-sheets>
@@ -41,7 +41,7 @@
 </div> -->
 
 
-<div class="container">
+<!-- <div class="container">
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <div formArrayName="addresses" *ngFor="let address of addresses.controls; let i = index">
       <ng-container *ngTemplateOutlet="addressTemplate; context: { $implicit: address, index: i }"></ng-container>
@@ -68,3 +68,10 @@
     </div>
   </ng-template>
 </div>
+
+<button (click)="patchValue()">Patch value</button>
+<h1>Test</h1>
+<input type="text" [(ngModel)]="obj.id" />
+<button (click)="onSubmitValue()">Submit</button> -->
+
+<nz-date-picker [nzFormat]="'dd/MM/yyyy'" [(ngModel)]="date" (ngModelChange)="onChange($event)"></nz-date-picker>

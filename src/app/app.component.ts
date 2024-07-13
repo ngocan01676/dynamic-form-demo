@@ -17,6 +17,8 @@ export class AppComponent implements OnInit {
   @ViewChild(DynamicFormComponent) formDynamic: DynamicFormComponent;
   myForm: FormGroup;
   form: FormGroup;
+  obj: any;
+  date: any;
 
   config: FieldConfig[] = [
     {
@@ -137,13 +139,15 @@ export class AppComponent implements OnInit {
     const file = event.target.files[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const arrayBuffer = reader.result as ArrayBuffer;
-      const base64String = this.arrayBufferToBase64(arrayBuffer);
-      //this.documentEditor!.open(base64String);
-    };
-    reader.readAsArrayBuffer(file);
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   const arrayBuffer = reader.result as ArrayBuffer;
+    //   const base64String = this.arrayBufferToBase64(arrayBuffer);
+    //   this.documentEditor!.open(base64String);
+    // };
+    // reader.readAsArrayBuffer(file);
+   // this.documentEditor!.open(file);
+   this.documentEditor.documentEditor.open(file);
   }
 
   // Function to convert ArrayBuffer to Base64
@@ -155,5 +159,28 @@ export class AppComponent implements OnInit {
       binary += String.fromCharCode(bytes[i]);
     }
     return window.btoa(binary);
+  }
+
+  patchValue() {
+    this.addresses.patchValue([
+      {
+        "street": "zxczxc",
+        "city": "zxczxc",
+        "country": "zczxczxc"
+      },
+      {
+        "street": "zxczxc",
+        "city": "zxczxc",
+        "country": "zczxczxc"
+      }
+    ]);
+
+  }
+  onSubmitValue() {
+    console.log(this.obj);
+  }
+
+  onChange($event: any) {
+
   }
 }

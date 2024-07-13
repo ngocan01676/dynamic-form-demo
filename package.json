@@ -23,6 +23,7 @@
     "@syncfusion/ej2-angular-spreadsheet": "^26.1.35",
     "@syncfusion/ej2-base": "^26.1.37",
     "@syncfusion/ej2-spreadsheet": "^26.1.35",
+    "ng-zorro-antd": "^16.2.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "xlsx": "^0.18.5",
